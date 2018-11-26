@@ -1,0 +1,19 @@
+.cel{
+    width: 20px;
+    height: 20px;
+    background: orange;
+    display: inline-block;
+}
+
+.snake-head{
+    background: gray;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.game{
+position: relative;
+}
