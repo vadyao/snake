@@ -1,3 +1,23 @@
+.game{
+    position: relative;
+}
+
+.game-area{
+    display: inline-block;
+}
+
+.panel{
+    display: inline-block;
+    margin: 0 0 0 1em;
+    background: gray;
+    padding: 1em;
+    border-radius: 1em;
+    color: white;
+    vertical-align: top;
+    min-width: 200px;
+    min-height: 100px;
+}
+
 .cel{
     width: 20px;
     height: 20px;
@@ -14,6 +34,23 @@
     top: 0;
 }
 
-.game{
-position: relative;
+.snake-body{
+    background: rgb(121, 71, 71);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
+
+.head-x{
+    width: 49%;
+    display: inline-block;
+}
+
+.head-y{
+    widows: 49%;
+    display: inline-block;  
+}
+
+/* flex */
