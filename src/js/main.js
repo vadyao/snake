@@ -7,6 +7,8 @@ window.addEventListener('keydown', gameLoop)
 function gameLoop(event) {
     const head = document.querySelector('.snake-head')
     const body = document.querySelector('.snake-body')
+    const head_axis_x = document.querySelector('.head-x')
+    const head_axis_y = document.querySelector('.head-y')
     console.log(event)
 
     body.style.top = y * 24 + 'px'
@@ -25,9 +27,13 @@ function gameLoop(event) {
     head.style.top = y * 24 + 'px'
     head.style.left = x * 24 + 'px'
 
+    head_axis_y.innerHTML = 'y:' + (y * 24)
+    head_axis_x.innerHTML = 'x:' + (x * 24)
 
 }
 
 gameLoop({ key: 0 })
+
+
 
 
