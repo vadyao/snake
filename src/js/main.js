@@ -6,13 +6,18 @@ window.addEventListener('keydown', gameLoop)
 
 function gameLoop(event) {
     const head = document.querySelector('.snake-head')
-    const body = document.querySelector('.snake-body')
+    const body = document.querySelectorAll('.snake-body')
     const head_axis_x = document.querySelector('.head-x')
     const head_axis_y = document.querySelector('.head-y')
-    console.log(event)
 
-    body.style.top = y * 24 + 'px'
-    body.style.left = x * 24 + 'px'
+    for (let i = 0; i < body.length - 1; i++) {
+        let current = body.length - (i + 1)
+        body[current].style.top = body[current - 1].style.top
+        body[current].style.left = body[current - 1].style.left
+    }
+
+    body[0].style.top = y * 24 + 'px'
+    body[0].style.left = x * 24 + 'px'
 
     if (event.key == 'ArrowRight') x++
     if (event.key == 'ArrowLeft') x--
