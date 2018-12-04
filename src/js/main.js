@@ -69,6 +69,7 @@ function add_food() {
 add_food()
 log (_x,_y)
 
+
 function foodArr(){
      food_arr.push({x: _x*24, y: _y*24})
 }
@@ -79,6 +80,6 @@ setInterval (function (){
     random()
     add_food()
     foodArr()
-}, 1000)
+    log (food_arr)
+}, 9000)
 
-log (food_arr)
