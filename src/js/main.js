@@ -56,18 +56,29 @@ function random() {
     return r  
 }
 
-setInterval(random, 1000)
 
-
+var _x = 0
+var _y = 0
 
 function add_food() {
-    let _x = random()*24
-    let _y = random()*24
-    log(_x, _y)
+     _x = random()
+     _y = random()
+     log (_x,_y)
 }
 
 add_food()
+log (_x,_y)
 
-//setInterval(add_food, 1000)
+function foodArr(){
+     food_arr.push({x: _x*24, y: _y*24})
+}
+foodArr()
 
-//food_arr.push()
+
+setInterval (function (){
+    random()
+    add_food()
+    foodArr()
+}, 1000)
+
+log (food_arr)
