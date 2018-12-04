@@ -1,5 +1,8 @@
 var x = 0
 var y = 0
+const log = console.log
+
+const game = document.querySelector('.game')
 
 //button listener
 window.addEventListener('keydown', gameLoop)
@@ -9,6 +12,7 @@ function gameLoop(event) {
     const body = document.querySelectorAll('.snake-body')
     const head_axis_x = document.querySelector('.head-x')
     const head_axis_y = document.querySelector('.head-y')
+
 
     for (let i = 0; i < body.length - 1; i++) {
         let current = body.length - (i + 1)
@@ -37,8 +41,33 @@ function gameLoop(event) {
 
 }
 
-gameLoop({ key: 0 })
+gameLoop({ key: 'ArrowRight' })
+
+//setInterval(() => { 
+//game.innerHTML += '<div class="snake-body"></div>'
+//}, 1000)
+
+
+var food_arr = []
+
+function random() {
+    let r = Math.random() * 10
+    r = Math.round(r)
+    return r  
+}
+
+setInterval(random, 1000)
 
 
 
+function add_food() {
+    let _x = random()*24
+    let _y = random()*24
+    log(_x, _y)
+}
 
+add_food()
+
+//setInterval(add_food, 1000)
+
+//food_arr.push()
