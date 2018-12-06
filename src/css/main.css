@@ -53,4 +53,11 @@
     display: inline-block;  
 }
 
-/* flex   */
+.food{
+    background: rgb(100, 175, 49);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

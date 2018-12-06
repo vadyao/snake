@@ -1,8 +1,10 @@
 var x = 0
 var y = 0
 const log = console.log
+var food_arr = []
 
 const game = document.querySelector('.game')
+const foodContainer = document.querySelector('.food-container')
 
 //button listener
 window.addEventListener('keydown', gameLoop)
@@ -33,11 +35,19 @@ function gameLoop(event) {
     if (y > 9) y = 0
     if (y < 0) y = 9
 
-    head.style.top = y * 24 + 'px'
-    head.style.left = x * 24 + 'px'
+    food_arr.map((food, i) => {
+        if (x == food.x && y == food.y){
+            food_arr.splice(i,1)
+            draw_food()
+        }
 
-    head_axis_y.innerHTML = 'y:' + (y * 24)
-    head_axis_x.innerHTML = 'x:' + (x * 24)
+})
+
+head.style.top = y * 24 + 'px'
+head.style.left = x * 24 + 'px'
+
+head_axis_y.innerHTML = 'y:' + (y * 24)
+head_axis_x.innerHTML = 'x:' + (x * 24)
 
 }
 
@@ -48,12 +58,12 @@ gameLoop({ key: 'ArrowRight' })
 //}, 1000)
 
 
-var food_arr = []
+
 
 function random() {
     let r = Math.random() * 10
     r = Math.round(r)
-    return r  
+    return r
 }
 
 
@@ -61,25 +71,35 @@ var _x = 0
 var _y = 0
 
 function add_food() {
-     _x = random()
-     _y = random()
-     log (_x,_y)
+    _x = random()
+    _y = random()
+    log(_x, _y)
 }
 
-add_food()
-log (_x,_y)
 
 
-function foodArr(){
-     food_arr.push({x: _x*24, y: _y*24})
+function foodArr() {
+    food_arr.push({ x: _x, y: _y })
 }
-foodArr()
 
 
-setInterval (function (){
+function draw_food() {
+    foodContainer.innerHTML = ''
+    food_arr.map((food) => {
+        foodContainer.innerHTML += `
+            <div style="left: ${food.x * 24}px; top: ${food.y * 24}px;" class="food"></div>`
+        log('food', food)
+    })
+
+}
+
+
+setInterval(function () {
     random()
     add_food()
     foodArr()
-    log (food_arr)
+    draw_food()
+    log(food_arr)
 }, 9000)
+
 
