@@ -1,13 +1,37 @@
+'use strict'
 var x = 0
 var y = 0
+var old_tail_x = 0
+var old_tail_y = 0
+var dir = 'Right'
+
 const log = console.log
 var food_arr = []
 
 const game = document.querySelector('.game')
-const foodContainer = document.querySelector('.food-container')
+let foodContainer = document.querySelector('.food-container')
 
 //button listener
-window.addEventListener('keydown', gameLoop)
+window.addEventListener('keydown', set_diraction)
+
+setInterval(midle_ware, 1000)
+
+function  midle_ware(){
+   let fake_event = {}
+   if(dir=='Right') fake_event.key = 'ArrowRight'
+   if(dir=='Left') fake_event.key = 'ArrowLeft'
+   if(dir=='Up') fake_event.key = 'ArrowUp'
+   if(dir=='Down') fake_event.key = 'ArrowDown'
+
+    gameLoop(fake_event)
+}
+
+function set_diraction(event){
+    if (event.key == 'ArrowRight') dir = 'Right'
+    if (event.key == 'ArrowLeft') dir = 'Left'
+    if (event.key == 'ArrowUp') dir = 'Up'
+    if (event.key == 'ArrowDown') dir = 'Down'
+}
 
 function gameLoop(event) {
     const head = document.querySelector('.snake-head')
@@ -18,12 +42,21 @@ function gameLoop(event) {
 
     for (let i = 0; i < body.length - 1; i++) {
         let current = body.length - (i + 1)
+        // remember  old_tail position
+        if (i == body.length - 2) {
+            old_tail_x = body[current].style.left
+            old_tail_y = body[current].style.top
+            log(body[current].style.left)
+        }
+
         body[current].style.top = body[current - 1].style.top
         body[current].style.left = body[current - 1].style.left
     }
 
     body[0].style.top = y * 24 + 'px'
     body[0].style.left = x * 24 + 'px'
+
+
 
     if (event.key == 'ArrowRight') x++
     if (event.key == 'ArrowLeft') x--
@@ -35,27 +68,26 @@ function gameLoop(event) {
     if (y > 9) y = 0
     if (y < 0) y = 9
 
+   
+
+    head.style.top = y * 24 + 'px'
+    head.style.left = x * 24 + 'px'
+
+    head_axis_y.innerHTML = 'y:' + (y * 24)
+    head_axis_x.innerHTML = 'x:' + (x * 24)
+
     food_arr.map((food, i) => {
-        if (x == food.x && y == food.y){
-            food_arr.splice(i,1)
+        if (x == food.x && y == food.y) {
+            food_arr.splice(i, 1)
             draw_food()
+            game.innerHTML += `<div style="left:${old_tail_x}; top:${old_tail_y}" class="snake-body"></div>`
         }
-
-})
-
-head.style.top = y * 24 + 'px'
-head.style.left = x * 24 + 'px'
-
-head_axis_y.innerHTML = 'y:' + (y * 24)
-head_axis_x.innerHTML = 'x:' + (x * 24)
-
+    })
+    log('control')
 }
 
 gameLoop({ key: 'ArrowRight' })
 
-//setInterval(() => { 
-//game.innerHTML += '<div class="snake-body"></div>'
-//}, 1000)
 
 
 
@@ -73,6 +105,8 @@ var _y = 0
 function add_food() {
     _x = random()
     _y = random()
+    if (_x == 10) _x = 9
+    if (_y == 10) _y = 9
     log(_x, _y)
 }
 
@@ -84,11 +118,16 @@ function foodArr() {
 
 
 function draw_food() {
+    let foodContainer = document.querySelector('.food-container')
+
+    log('draw - food')
     foodContainer.innerHTML = ''
     food_arr.map((food) => {
+        // foodContainer.innerHTML += '*'
+
         foodContainer.innerHTML += `
-            <div style="left: ${food.x * 24}px; top: ${food.y * 24}px;" class="food"></div>`
-        log('food', food)
+           <div style="left: ${food.x * 24}px; top: ${food.y * 24}px;" class="food"></div>`
+        log('food * ', food)
     })
 
 }
