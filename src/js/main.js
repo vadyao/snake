@@ -1,6 +1,7 @@
 'use strict'
 var x = 0
 var y = 0
+
 var old_tail_x = 0
 var old_tail_y = 0
 var dir = 'Right'
@@ -16,17 +17,17 @@ window.addEventListener('keydown', set_diraction)
 
 setInterval(midle_ware, 1000)
 
-function  midle_ware(){
-   let fake_event = {}
-   if(dir=='Right') fake_event.key = 'ArrowRight'
-   if(dir=='Left') fake_event.key = 'ArrowLeft'
-   if(dir=='Up') fake_event.key = 'ArrowUp'
-   if(dir=='Down') fake_event.key = 'ArrowDown'
+function midle_ware() {
+    let fake_event = {}
+    if (dir == 'Right') fake_event.key = 'ArrowRight'
+    if (dir == 'Left') fake_event.key = 'ArrowLeft'
+    if (dir == 'Up') fake_event.key = 'ArrowUp'
+    if (dir == 'Down') fake_event.key = 'ArrowDown'
 
     gameLoop(fake_event)
 }
 
-function set_diraction(event){
+function set_diraction(event) {
     if (event.key == 'ArrowRight') dir = 'Right'
     if (event.key == 'ArrowLeft') dir = 'Left'
     if (event.key == 'ArrowUp') dir = 'Up'
@@ -38,6 +39,7 @@ function gameLoop(event) {
     const body = document.querySelectorAll('.snake-body')
     const head_axis_x = document.querySelector('.head-x')
     const head_axis_y = document.querySelector('.head-y')
+
 
 
     for (let i = 0; i < body.length - 1; i++) {
@@ -68,10 +70,34 @@ function gameLoop(event) {
     if (y > 9) y = 0
     if (y < 0) y = 9
 
-   
+
 
     head.style.top = y * 24 + 'px'
     head.style.left = x * 24 + 'px'
+
+
+    for (let i = 0; i < body.length; i++) {
+        let _y = body[i].style.top
+        let _x = body[i].style.left
+        _y = _y.split('')
+        _y.pop()
+        _y.pop()
+        _y = _y.join('')
+        _x = _x.split('')
+        _x.pop()
+        _x.pop()
+        _x = _x.join('')
+        _y = _y / 24
+        _x = _x / 24
+        log('body:', _x, _y)
+        if (x == _x && y == _y) {
+            food_arr = []
+            alert('game over')
+            location.reload()
+        }
+        
+    }
+
 
     head_axis_y.innerHTML = 'y:' + (y * 24)
     head_axis_x.innerHTML = 'x:' + (x * 24)
@@ -138,7 +164,6 @@ setInterval(function () {
     add_food()
     foodArr()
     draw_food()
-    log(food_arr)
 }, 9000)
 
 
